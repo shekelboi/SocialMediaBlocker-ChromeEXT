@@ -251,29 +251,13 @@ const generateHTML = (pageName) => {
    `;
 };
 
-switch (window.location.hostname) {
-  case "www.youtube.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("YOUTUBE");
-    break;
-  case "www.facebook.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("FACEBOOK");
-    break;
-  case "www.netflix.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("NETFLIX");
-    break;
-  case "www.roblox.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("ROBLOX");
-    break;
-  case "discord.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("DISCORD");
-    break;
-  case "www.spotify.com":
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("SPOTIFY");
-    break;
-}
+blocked_urls = ['youtube.com', 'facebook.com', 'netflix.com', 'roblox.com', 'discord.com', 'spotify.com']
+
+blocked_urls.forEach(url => {
+  if (window.location.hostname.includes(url)) {
+    document.write(generateSTYLES());
+    document.write(generateHTML(url.split('.')[0].toUpperCase()));
+    window.stop();
+    return;
+  }
+});
